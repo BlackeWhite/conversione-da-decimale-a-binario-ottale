@@ -18,16 +18,18 @@ int dectobin(int num, int& i, int& tot)
 	dectobin(div, i, tot);
 	return tot;
 }
-int dectoott(int num, int& j, int& tot1)
+int dectoott(int num, int& j, int& tot1,int& sc)
 {
-	int div = num / 8;
+	if ((num<8)&&(sc==0)) {return num;} 
+        int div = num / 8;
 	int res = num % 8;
 	int pot = 1;
 	for (int f = 0; f<j; f++) pot *= 10;
-	tot1 += res*pot;
+	tot1 += (res*pot);
+        sc=1;
 	j++;
         if (div==0) {return 0;}
-	dectoott(div, j, tot1);
+	dectoott(div, j, tot1,sc);
 	return tot1;
 }
 int main()
@@ -36,13 +38,13 @@ int main()
 	cout << "Inserisci il numero decimale: ";
 	cin >> num;
 	int i = 0;
-  int j=0;
+        int j=0;
 	int tot = 0;
-  int tot1=0;
+        int tot1=0;
+        int sc=0;
 	int somma1 = 0;
 	int bin = dectobin(num, i, tot);
 	cout << "In binario: " << bin << endl;
-	int ott = dectoott(num, j, tot1);
+	int ott = dectoott(num, j, tot1,sc);
 	cout << "in ottale: " << ott << endl;
 }
-
